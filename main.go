@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
-	"log"
 	"strings"
 )
 
@@ -17,6 +17,7 @@ func main() {
 	office := "libreoffice"
 	pdf := "evince"
 	web := "firefox"
+	code := "code"
 
 	// Command flags.
 	audioFlags := "-no-video"
@@ -24,8 +25,8 @@ func main() {
 	imageFlags := "-f"
 	officeFlags := ""
 	pdfFlags := "--fullscreen"
-	webFlags := "" 
-
+	webFlags := ""
+	codeFlags := ""
 
 	fileFormats := map[string]string{
 		"mp3":  "audio",
@@ -69,7 +70,10 @@ func main() {
 		"odp":  "office",
 		"html": "web",
 		"htm":  "web",
-		"pdf":	"pdf",
+		"pdf":  "pdf",
+		"go":   "code",
+		"mod":  "code",
+		"md":   "code",
 	}
 
 	// Check if the correct number of arguments is provided.
@@ -100,6 +104,8 @@ func main() {
 			runCommand(web, webFlags, argument)
 		case "pdf":
 			runCommand(pdf, pdfFlags, argument)
+		case "code":
+			runCommand(code, codeFlags, argument)
 		default:
 			fmt.Println("Invalid File Extensions")
 		}
@@ -115,6 +121,6 @@ func runCommand(command, argument1, argument2 string) {
 }
 
 func fileExtension(file string) string { // check for files that have no extension?
-    s := strings.Split(file, ".")  
-    return strings.ToLower(s[len(s)-1])
+	s := strings.Split(file, ".")
+	return strings.ToLower(s[len(s)-1])
 }
